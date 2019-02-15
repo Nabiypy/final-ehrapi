@@ -85,7 +85,7 @@ config.getSmtpTransporter = nodemailer.createTransport(smtpTransport({
   port: 587,
   auth: {
     user: 'sasim@sasghana.com',
-    pass: 'S@SIm*246'
+    pass: 'S@SIm*246#$'
   },
   tls: {rejectUnauthorized: false},
   debug: true

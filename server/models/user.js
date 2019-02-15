@@ -3,6 +3,7 @@
 
 var Sequelize = require('sequelize'),
     bcrypt = require('bcrypt'),
+    // bcrypt = require('bcrypt-nodejs'),
     config = require('../config'),
     db = require('./database');
 
@@ -65,9 +66,9 @@ function toProfileJsonFor() {
     firstName: this.firstName,
     middleName: this.middleName,
     lastName: this.lastName,
-    mobile: this.mobile,
+    phoneNumber: this.phoneNumber,
     email: this.email,
-    gravatar: this.gravatar
+    gravatar: this.gravatar,
   }
 }
 

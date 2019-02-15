@@ -121,7 +121,7 @@ AuthController.signUp = function (req, res) {
             // console.log(error);
             res.status(403).json({
                 message: 'Email or Username already exists!',
-                original: error.original.sqlMessage
+                original: error.original
             });
         });
     }

@@ -24,7 +24,6 @@ PassportServiceController.savePassport = function (req, res) {
     idType: req.body.idType,
     idNumber: req.body.idNumber,
     expiredDate: req.body.expiredDate
-
     };
 
     return Passport.create(newPassport).then(function () {

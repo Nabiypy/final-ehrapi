@@ -4,20 +4,6 @@ var crypto = require('crypto'),
     password = 'ehrapi-app-by-py',
     utilGenerator = {};
 
-utilGenerator.generateCardWallet = function () {
-  // Todo: generate cardWallet = 006 990 059 513 0008
-  // Todo: get card from card table and loop through
-  var bank = "006",
-    card = "",
-    cardWallet = "",
-    possible = "0123456789";
-
-  for (var i = 0; i < 13; i++)
-    card += possible.charAt(Math.floor(Math.random() * possible.length));
-  cardWallet = bank + card;
-  return cardWallet;
-}
-
 utilGenerator.generateTransId = function () {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
