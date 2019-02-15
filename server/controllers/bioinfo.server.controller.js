@@ -58,18 +58,20 @@ BioinfoServiceController.createBioInfo = function (req, res) {
 // Read all Biological Info
 BioinfoServiceController.getAllBioInfo = function (req, res) {
   Bioinfo.findAll()
-    .then(function (bioinfo) {
+    .then(function (bioinfos) {
       res.status(200)
-        .json(bioinfo);
-      console.info('find all bioinfo load ~ ');
+         .json(bioinfos);
+      console.info('find all bioinfos. loading ~ ');
     })
     .catch(function (error) {
       res.status(500).json(error);
     });
 }
+
 //Read Biological info
-BioinfoServiceController.getBioInfo = function (req, res) {
-  Bioinfo.findById(req.params.id)
+BioinfoServiceController.getBioInfoById= function (req, res) {
+  const bioId = req.params.id;
+  Bioinfo.findById(bioId)
     .then(function (bioinfo) {
       res.status(200)
         .json(bioinfo);
@@ -79,6 +81,21 @@ BioinfoServiceController.getBioInfo = function (req, res) {
       res.status(500).json(error);
     });
 }
+
+//Read Bio info by postID
+BioinfoServiceController.getBioInfoByPostId= function (req, res) {
+  // console.log(`[postId] ==> ${postId}`);
+  Bioinfo.findById(req.params.bioInfoId)
+    .then(function (bioinfo) {
+      res.status(200)
+         .json(bioinfo);
+      console.log('error: false ', 'message: read single bioinfo post ~', bioinfo);
+    })
+    .catch(function (error) {
+      res.status(500).json(error);
+    });
+}
+
 // Update Biological info
 BioinfoServiceController.updateBioInfo = function (req, res) {
   Bioinfo.update(req.body, {

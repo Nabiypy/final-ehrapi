@@ -8,33 +8,27 @@ var Sequelize = require('sequelize'),
 
 // 1: The model schema.
 var modelDefinition = {
+  id: {
+        primaryKey: true,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
+  },
   firstName: { type: Sequelize.STRING},
   lastName: { type: Sequelize.STRING},
   middleName: { type: Sequelize.STRING},
   email:{ type: Sequelize.STRING, unique: true, allowNull: false },
   username: { type: Sequelize.STRING, unique: true, allowNull: false },
-  mobile:{ type: Sequelize.STRING, allowNull: false },
+  phoneNumber:{ type: Sequelize.TEXT, allowNull: false },
   password: { type: Sequelize.STRING, allowNull: false},
   gravatar: { type: Sequelize.BLOB('long') },
-  bio: { type: Sequelize.TEXT },
-  position: { type: Sequelize.STRING},
-  department: { type: Sequelize.STRING},
   status: {type: Sequelize.BOOLEAN, defaultValue: true },
-  following: {type: Sequelize.STRING,},
-  followers: { type: Sequelize.STRING },
-  like:{ type: Sequelize.STRING },
-  group: { type: Sequelize.STRING},
   role: {type: Sequelize.STRING, defaultValue: config.userRoles.user},
-  joined: { type: Sequelize.DATE },
-  otherInfo: { type: Sequelize.STRING},
+  tokenDate: { type: Sequelize.DATE },
   email_confirmed: { type: Sequelize.BOOLEAN },
-  mobile_confirmed: { type: Sequelize.BOOLEAN},
+  mobile_confirmed: { type: Sequelize.BOOLEAN, defaultValue: false},
   secret: { type: Sequelize.STRING},
-  blocked: {type: Sequelize.STRING, defaultValue: 'active'},
-  gender: { type: Sequelize.STRING},
-  dateOfBirth: {type: Sequelize.DATE},
-  country: { type: Sequelize.STRING },
-  geolocation: { type: Sequelize.TEXT}
+  last_secret_date: { type: Sequelize.STRING},
+  blocked: {type: Sequelize.STRING, defaultValue: false },
 };
 
 // 2: The model options.
@@ -73,16 +67,10 @@ function toProfileJsonFor() {
     lastName: this.lastName,
     mobile: this.mobile,
     email: this.email,
-    department: this.department,
-    position: this.position,
-    bio: this.bio,
-    gravatar: this.gravatar,
-    following: 'false',
-    status: this.status,
-    joined: this.joined,
-    country: this.country
+    gravatar: this.gravatar
   }
 }
+
 // Hashes the password for a user object.
 function hashPassword(user) {
   if(user.changed('password')) {
@@ -94,7 +82,9 @@ function hashPassword(user) {
 
 function associate(models) {
   //A User can have many Makes.
-  UserModel.hasMany(models.PostModel, {onDelete: 'cascade'});
+  UserModel.hasMany(models.BioInfoModel, {onDelete: 'cascade'});
+  UserModel.hasMany(models.PersonalInfoModel, {onDelete: 'cascade'});
+  UserModel.hasMany(models.MedicalHistoryModel, {onDelete: 'cascade'});
 }
 
 module.exports = UserModel;

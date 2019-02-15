@@ -6,7 +6,6 @@ var nodemailer = require('nodemailer'),
 
   config = module.exports;
 
-
 // config.db = {
 //   user: 'areash5_hanson',
 //   password: 'digimas14',
@@ -23,7 +22,7 @@ var nodemailer = require('nodemailer'),
 config.db = {
     user: 'root',
     password: 'digimas14',
-    name: 'new_ehr'
+    name: 'dev_ehr'
 };
 
 config.db.details = {
@@ -107,8 +106,8 @@ config.hubtel = {
 
 config.infoBib = {
   baseUrl: "https://api.infobip.com/",
-  userName: "DafabetGH",
-  password: "D@f@Bet*SaS",
+  userName: "SASFinance",
+  password: "*AsoGli@123*",
   sendSmsUrl: "sms/1/text/single",
   smsDeliveryReportUrl: "sms/1/reports?",
   smsLogsUrl: "sms/1/logs"

@@ -1,7 +1,7 @@
 'use strict';
 /**
  * Created by hanso on 01/02/2019.
- * National Voters Identity model
+ * Physicians model
  */
 
 var Sequelize = require('sequelize'),
@@ -14,13 +14,14 @@ var modelDefinition = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-      userId: { type: Sequelize.STRING, unique: false },
+      userId: { type: Sequelize.STRING, unique: true },
       bioInfoId: { type: Sequelize.STRING, allowNull: false},
-      firstName: { type: Sequelize.STRING},
-      lastName: { type: Sequelize.STRING},
-      idType: { type: Sequelize.STRING},
-      idNumber: { type: Sequelize.STRING},
-      expiredDate: { type: Sequelize.DATE}
+      doctorFullName: { type: Sequelize.STRING},
+      doctorFirstName: { type: Sequelize.STRING},
+      doctorLastName: { type: Sequelize.STRING},
+      location: { type: Sequelize.STRING},
+      currentWorkPlace: { type: sequelize.STRING },
+
 };
 
 // 2: The model options.
@@ -31,9 +32,9 @@ var modelOptions = {
 };
 
 // 3: Define the User model.
-var VotesIdModel = db.define('voters', modelDefinition, modelOptions);
+var AilmentModel = db.define('ailment', modelDefinition, modelOptions);
 
 function associate(models) {
-  VotesIdModel.belongsTo(models.BioInfoModel,{onDelete: 'cascade'})
+  AilmentModel.belongsTo(models.BioInfoModel,{onDelete: 'cascade'})
 }
-module.exports = VotesIdModel;
+module.exports = AilmentModel;

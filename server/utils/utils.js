@@ -1,7 +1,7 @@
 var crypto = require('crypto'),
     request = require('request')
     algorithm = 'aes-256-ctr',
-    password = 'easypay-app-by-etz-aka-py',
+    password = 'ehrapi-app-by-py',
     utilGenerator = {};
 
 utilGenerator.generateCardWallet = function () {
@@ -66,10 +66,18 @@ utilGenerator.sendRegisterSms = function (user, payload) {
 
   function doGetRequest(url){
     request(url, function(error, response, body) {
-      //console.log(body);
+      console.log('send sms >>>',body);
     });
   }
 
+}
+
+utilGenerator.generateSecretCode = function (){
+  var text = "";
+    var possible = "0123456789";
+    for( var i=0; i < 6; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
 }
 
 module.exports = utilGenerator;

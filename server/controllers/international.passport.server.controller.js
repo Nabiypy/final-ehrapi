@@ -16,7 +16,7 @@ PassportServiceController.savePassport = function (req, res) {
   console.log("passport request body >>>", body);
 
   db.sync().then(function () {
-    var newBioInfo = {
+    var newPassport = {
     userId: req.body.userId,
     bioInfoId: req.body.bioInfoId,
     firstName: req.body.firstName,
@@ -27,7 +27,7 @@ PassportServiceController.savePassport = function (req, res) {
 
     };
 
-    return Passport.create(passport).then(function () {
+    return Passport.create(newPassport).then(function () {
       res.status(201)
          .json({message: 'new passport info saved successfully'});
     });
@@ -51,10 +51,10 @@ PassportServiceController.getAllSavedPassport = function (req, res) {
 }
 //Read Biological info
 PassportServiceController.getPassportInfo = function (req, res) {
-  Bioinfo.findById(req.params.id)
+  Passport.findById(req.params.id)
     .then(function (passport) {
       res.status(200)
-        .json(passport);
+         .json(passport);
       console.log('error: false ', 'message: read single post ~', bioinfo);
     })
     .catch(function (error) {
@@ -63,7 +63,7 @@ PassportServiceController.getPassportInfo = function (req, res) {
 }
 // Update Biological info
 PassportServiceController.updatePassportInfo = function (req, res) {
-  Bioinfo.update(req.body, {
+  Passport.update(req.body, {
     where: { id: req.params.id }
   })
     .then(function (updatedRecords) {
@@ -77,7 +77,7 @@ PassportServiceController.updatePassportInfo = function (req, res) {
 
 //delete Biological info
 PassportServiceController.removePassportInfo = function (req, res) {
-  Bioinfo.destroy({
+  Passport.destroy({
     where: { id: req.params.id }
   })
     .then(function (deletedRecords) {

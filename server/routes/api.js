@@ -17,13 +17,13 @@ var APIRoutes = function(passport) {
     // POST Routes.
     router.post('/signup', AuthController.signUp);
     router.post('/authenticate', AuthController.authenticateUser);
+    router.post('/otpactivate', AuthController.accountVerify);
 
     router.post('/mail', NodeMailController.doPost);
     router.post('/mandmail', NodeMailController.sendMandrillMail);
 
     router.post('/createbioinfo', BioinfoServiceController.createBioInfo);
     router.post('/createpersonalinfo', PersonalinfoServiceController.createPersonalInfo);
-
     router.post('/savepassport', PassportServerController.savePassport);
 
 
@@ -35,11 +35,12 @@ var APIRoutes = function(passport) {
     router.get('/admin', passport.authenticate('jwt', { session: false }), allowOnly(config.accessLevels.admin, AdminController.index));
 
 
-    router.get('/getallbioinfo', BioinfoServiceController.getAllBioInfo);
-    router.get('/getallpersonalinfo', PersonalinfoServiceController.getAllPersonalInfo);
+    router.get('/bioinfos', BioinfoServiceController.getAllBioInfo);
+    router.get('/bioinfo/:id', BioinfoServiceController.getBioInfoById);
+    router.get('/bioinfo/bypost/:postId', BioinfoServiceController.getBioInfoByPostId);
 
-    router.get('/getsavedpassport', PassportServerController.getAllSavedPassport);
-
+    router.get('/personalinfos', PersonalinfoServiceController.getAllPersonalInfo);
+    router.get('/savedpassport', PassportServerController.getAllSavedPassport);
 
   return router;
 };

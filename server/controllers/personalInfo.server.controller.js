@@ -51,6 +51,7 @@ PersonalInfoServiceController.getAllPersonalInfo = function (req, res) {
       res.status(500).json(error);
     });
 }
+
 //Read Biological info
 PersonalInfoServiceController.getBioInfo = function (req, res) {
   PersonalInfo.findById(req.params.id)
@@ -63,6 +64,7 @@ PersonalInfoServiceController.getBioInfo = function (req, res) {
       res.status(500).json(error);
     });
 }
+
 // Update Biological info
 PersonalInfoServiceController.updateBioInfo = function (req, res) {
   PersonalInfo.update(req.body, {
@@ -89,7 +91,7 @@ PersonalInfoServiceController.removePersonalInfo = function (req, res) {
     })
     .catch(function (error) {
       res.status(500)
-        .json(error);
+         .json(error);
       console.log('error: true ', 'message: ', error)
     });
 }

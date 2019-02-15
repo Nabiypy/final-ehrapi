@@ -9,7 +9,12 @@ var Sequelize = require('sequelize'),
     db = require('./database');
 
 var modelDefinition = {
-      userId: { type: Sequelize.STRING, unique: true },
+     id: {
+        primaryKey: true,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
+      },
+      userId: { type: Sequelize.STRING, unique: false },
       bioInfoId: { type: Sequelize.STRING, allowNull: false},
       firstName: { type: Sequelize.STRING},
       lastName: { type: Sequelize.STRING},
@@ -26,7 +31,7 @@ var modelOptions = {
 };
 
 // 3: Define the User model.
-var DriversLicenseModel = db.define('license', modelDefinition, modelOptions);
+var DriversLicenseModel = db.define('dlicense', modelDefinition, modelOptions);
 
 function associate(models) {
   DriversLicenseModel.belongsTo(models.BioInfoModel,{onDelete: 'cascade'})

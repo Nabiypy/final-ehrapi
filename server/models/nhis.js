@@ -9,6 +9,11 @@ var Sequelize = require('sequelize'),
     db = require('./database');
 
 var modelDefinition = {
+       id: {
+        primaryKey: true,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
+      },
       userId: { type: Sequelize.STRING, unique: true },
       bioInfoId: { type: Sequelize.STRING, allowNull: false},
       firstName: { type: Sequelize.STRING},

@@ -9,8 +9,19 @@ var Sequelize = require('sequelize'),
     db = require('./database');
 
 var modelDefinition = {
-      userId: { type: Sequelize.STRING, unique: true },
-      bioInfoId: { type: Sequelize.STRING, allowNull: false},
+      id: {
+        primaryKey: true,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
+      },
+      userId: {
+          type: Sequelize.STRING,
+          unique: false,
+      },
+      bioInfoId: {
+          type: Sequelize.STRING,
+          allowNull: false
+      },
       levelOfEducation: { type: Sequelize.STRING, allowNull: false, validate: { notEmpty: true } },
       spokenLanguages: { type: Sequelize.TEXT },
       profession: { type: Sequelize.STRING },
@@ -31,6 +42,7 @@ var modelOptions = {
 var PersonalInfoModel = db.define('personalinfo', modelDefinition, modelOptions);
 
 function associate(models) {
-  PersonalInfoModel.belongsTo(models.BioInfoModel,{onDelete: 'cascade'})
+  PersonalInfoModel.belongsTo(models.BioInfoModel,{onDelete: 'cascade'});
+  PersonalInfoModel.belongsTo(models.UserModel);
 }
 module.exports = PersonalInfoModel;

@@ -3,74 +3,8 @@ var async = require('async');
 var request = require("request");
 var utils = require('../utils/utils');
 var smtpTransport = require('nodemailer-smtp-transport');
-var logger = require('../controllers/logger');
-
-
-exports.paymentSuccessSms = function (user, payment) {
-    var messages = [];
-    var message1 = "Hi " + user.getFullName() + "\n,Your TV licence payment of GHS" + payment.amountPaid + " has been processed successfully.";
-    if (user.amountDue > 0) {
-        message1 = message1 + "\nYour outstanding balance is GHS" + user.amountDue;
-    } else {
-        var date = new Date();
-        if (user.expiryDate != null) {
-            if (typeof user.expiryDate == 'string') {
-                date = new Date(user.expiryDate);
-            } else {
-                date = user.expiryDate;
-            }
-        } else {
-            var currentDate = new Date();
-            var expireYear = (currentDate.getFullYear());
-            date = new Date("January 1, " + (expireYear + 1) + " 00:01:00");
-        }
-        var formatedDate = utils.formatDate(date);
-        message1 = message1 + "\nYour TV licence has been fully paid" +
-            "\nYour licence will expire on " + formatedDate;
-    }
-    messages.push(message1);
-    if (user.accountBalance > 0) {
-        var message2 = "You have a credit of GHS" + user.accountBalance + " in you TV licence account"
-            + "\nAmount will be rolled over to the next year";
-        messages.push(message2);
-    }
-    console.log("Sending Sms to " + user.mobile);
-    sendSms(messages, [user.mobile]);
-};
-
-exports.paymentSuccessEmail = function (user, payment) {
-
-    var message1 = "Dear " + user.getFullName() + ",\nYou TV licence payment of GHS " + payment.amountPaid + " has been processed successfully.";
-    if (user.amountDue > 0) {
-        message1 = message1 + "\nYour outstanding balance is GHS " + user.amountDue;
-    } else {
-        var date = new Date();
-        if (user.expiryDate != null) {
-            if (typeof user.expiryDate == 'string') {
-                date = new Date(user.expiryDate);
-            } else {
-                date = user.expiryDate;
-            }
-        } else {
-            var currentDate = new Date();
-            var expireYear = (currentDate.getFullYear());
-            date = new Date("December 31, " + expireYear + " 00:01:00");
-        }
-        var formatedDate = utils.formatDate(date);
-        message1 = message1 + "\nYour TV licence has been fully paid" +
-            "\nYour licence will expire on " + formatedDate;
-    }
-    if (user.accountBalance > 0) {
-        message1 = message1 + "You have a credit of GHS" + user.accountBalance + " in you TV licence account"
-            + "\nAmount will be rolled over to the next year"
-    }
-    var subject = "TV licence Payment";
-    var messages = [{subject: subject, message: message1}];
-
-    sendMail([user.email], messages);
-
-};
-
+var logger = require('../controllers/logger'),
+    config = require('../config');
 
 exports.verificationCodeSms = function (user) {
     var message1 = "Change Password verification code : " + user.verifySecret;
@@ -93,13 +27,12 @@ exports.verificationCodeEmail = function (user, payment) {
 };
 
 exports.sendRegisterSms = function (user, payload) {
-
     setTimeout(function () {
 
         var message1 = "Thank you for registering for TV licence. Your ID is " + user.licenceId + "\n"
             + " Please use this for identification every time you pay your tv licence";
         var today = new Date();
-        var message2 = "Your TV licence amount for the year "+today.getFullYear()+" is GHS" + user.yearCharge + "\n"
+        var message2 = "Your TV licence amount for the year " + today.getFullYear() + " is GHS" + user.yearCharge + "\n"
             + "Please pay at GBC offices";
 
         sendSms([message1, message2], [payload.mobileNumber]);
@@ -118,7 +51,7 @@ exports.sendRegisterEmail = function (user, payload) {
 
         var subject2 = "TV licence Amount Due";
         var today = new Date();
-        var message2 = "Your TV licence amount for the year "+today.getFullYear()+" is GHS" + user.yearCharge + "\n"
+        var message2 = "Your TV licence amount for the year " + today.getFullYear() + " is GHS" + user.yearCharge + "\n"
             + "Please pay at any bank with the TV licence poster, GBC offices and Ghana Post";
 
         var mails = [];
@@ -235,41 +168,7 @@ var getMailOptions = function (receipient, subject, message) {
     }
 };
 
-function sendSms(messages, recipients) {
-
-    setTimeout(function () {
-        var mlen = messages.length;
-        var rlen = recipients.length;
-
-        for (var i = 0; i < mlen; i++) {
-            try {
-                var msg = messages[i];
-                var mobile = "";
-                for (var j = 0; j < rlen; j++) {
-                    if (recipients[j].indexOf("0") === 0) {
-                        mobile = "233" + recipients[j].substring(1, 10);
-                    } else {
-                        mobile = recipients[j];
-                    }
-                    sendSmsZentech(mobile, msg);
-                }
-            } catch (ex) {
-                console.log("Error sending Sms");
-                console.log(ex);
-            }
-        }
-
-    }, 1000);
-}
-
-function doGetRequest(url) {
-    request(url, function (error, response, body) {
-        //console.log(body);
-    });
-}
-
 var sendSmsZentech = function (mobile, message) {
-
     var config = {
         "username": "zent-etranzact",
         "password": "tranz@01",
@@ -298,6 +197,48 @@ var sendSmsZentech = function (mobile, message) {
     });
 };
 
+exports.sendSmsInfobip = function (mobile, message) {
+    var url = config.infoBib.baseUrl + config.infoBib.sendSmsUrl,
+        auth = "Basic " + new Buffer(config.infoBib.userName + ":" + config.infoBib.password).toString("base64");
+
+    if (mobile.indexOf("0") === 0) {
+        mobile = "233" + mobile.substring(1, 10);
+    } else {
+        mobile = mobile;
+    }
+
+    var payload = {
+        "from": "CloudAfrica",
+        "to": mobile,
+        "text": message
+    };
+
+    var options = {
+        url: url,
+        json: true,
+        body: payload,
+        method: "POST",
+        headers: {
+            "Authorization": auth
+        }
+    };
+    console.log("options >>>", options);
+    logger.log("postSMS options == " + options);
+    request(options, function (error, response, body) {
+        if (error) {
+            console.log("error", "error sms >>> ", error);
+            logger.error("error sms >>> ", error);
+            res.json(error);
+        } else {
+            logger.log("infobip", "successful response >>");
+            console.log(`sms result body >>>> ${JSON.stringify(body)}`);
+            logger.log(`sms result body >>>> ${JSON.stringify(body)}`);
+
+            return body;
+        }
+    });
+
+}
 
 
 
