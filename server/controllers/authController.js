@@ -113,15 +113,19 @@ AuthController.signUp = function (req, res) {
                 console.log('new user >>> ', user.dataValues);
                 const otpcode = user.dataValues.secret;
                 const otpMsg = `Hi ${user.dataValues.firstName}, use OTP: ${otpcode} to activate your account.Thank you.`;
-                console.log('send sms >>> ');
-                otp.sendSmsInfobip(user.dataValues.phoneNumber, otpMsg);
-                res.status(201).json({message: 'Account created successfully!'});
+                console.log('sending sms with OTP code >>> ');
+                // otp.sendSmsInfobip(user.dataValues.phoneNumber, otpMsg);
+                res.status(201).json({
+                    success: 'Account successfully initiated. Please enter the OTP code to /api/otpactivate to complete the registration',
+                    message: otpMsg,
+                    otpCode: otpcode
+                });
             });
         }).catch(function (error) {
             // console.log(error);
             res.status(403).json({
                 message: 'Email or Username already exists!',
-                original: error.original
+                original: error
             });
         });
     }
