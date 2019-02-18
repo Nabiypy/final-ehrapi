@@ -14,8 +14,10 @@ var modelDefinition = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-     userId: { type: Sequelize.STRING },
-     bioInfoId: { type: Sequelize.STRING, unique: true },
+     userId: { 
+       type: Sequelize.STRING, 
+       references: {model : "user", key: "id"}
+      },
      fullName: { type: Sequelize.STRING, allowNull: false },
      firstName: { type: Sequelize.STRING },
      middleName: { type: Sequelize.STRING },
@@ -52,5 +54,7 @@ var BioInfoModel = db.define('bioinfo', modelDefinition, modelOptions);
 function associate(models) {
   BioInfoModel.belongsTo(models.UserModel,{onDelete: 'cascade'});
   BioInfoModel.hasMany(models.PersonalInfoModel, {onDelete: 'cascade'})
+  BioInfoModel.belongsTo(models.MedicalHistoryModel,{onDelete: 'cascade'});
+
 }
 module.exports = BioInfoModel;

@@ -114,7 +114,7 @@ AuthController.signUp = function (req, res) {
                 const otpcode = user.dataValues.secret;
                 const otpMsg = `Hi ${user.dataValues.firstName}, use OTP: ${otpcode} to activate your account.Thank you.`;
                 console.log('sending sms with OTP code >>> ');
-                // otp.sendSmsInfobip(user.dataValues.phoneNumber, otpMsg);
+                otp.sendSmsInfobip(user.dataValues.phoneNumber, otpMsg);
                 res.status(201).json({
                     success: 'Account successfully initiated. Please enter the OTP code to /api/otpactivate to complete the registration',
                     message: otpMsg,

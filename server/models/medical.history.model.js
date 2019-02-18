@@ -17,21 +17,16 @@ var modelDefinition = {
      userId: {
       type: Sequelize.STRING,
       allowNull: false,
-      references: {
-        model: 'UserModel',
-        key: 'id'
-      }
+      references: { model: 'user', key: 'id'}
      },
      bioInfoId: {
-         type: Sequelize.STRING,
-         references: {
-             model: 'BioInfoModel'
-         }
+       type: Sequelize.STRING,
+       references: { model: "bioinfo", key: "id" }
      },
      lastHospitalVisited: { type: Sequelize.STRING },
      dateOfVisitation: { type: Sequelize.STRING },
      middleName: { type: Sequelize.STRING },
-     diagnosis: { type: Sequelize.STRING },
+     diagnosis: { type: Sequelize.TEXT },
      statusOfTreatment: { type: Sequelize.TEXT },
      medications: { type: Sequelize.TEXT },
      dateOfCompletion: { type: Sequelize.DATE },

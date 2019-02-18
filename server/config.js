@@ -7,13 +7,13 @@ var nodemailer = require('nodemailer'),
   config = module.exports;
 
 // config.db = {
-//   user: 'areash5_hanson',
-//   password: 'digimas14',
-//   name: 'areash5_demo-intr'
+//   user: 'sasghana.com',
+//   password: 'digimas@14',
+//   name: 'ehr'
 // };
-
+//
 // config.db.details = {
-//   host: '172.81.119.95',
+//   host: '66.201.99.23',
 //   port: 3306,
 //   dialect: 'mysql'
 // };

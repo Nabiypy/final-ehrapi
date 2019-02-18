@@ -2,8 +2,7 @@
 'use strict';
 
 var Sequelize = require('sequelize'),
-    bcrypt = require('bcrypt'),
-    // bcrypt = require('bcrypt-nodejs'),
+    bcrypt = require('bcryptjs'),
     config = require('../config'),
     db = require('./database');
 
@@ -18,7 +17,7 @@ var modelDefinition = {
   lastName: { type: Sequelize.STRING},
   middleName: { type: Sequelize.STRING},
   email:{ type: Sequelize.STRING, unique: true, allowNull: false },
-  username: { type: Sequelize.STRING, unique: true, allowNull: false },
+  username: { type: Sequelize.STRING, unique: false, allowNull: false },
   phoneNumber:{ type: Sequelize.TEXT, allowNull: false },
   password: { type: Sequelize.STRING, allowNull: false},
   gravatar: { type: Sequelize.BLOB('long') },
@@ -86,6 +85,9 @@ function associate(models) {
   UserModel.hasMany(models.BioInfoModel, {onDelete: 'cascade'});
   UserModel.hasMany(models.PersonalInfoModel, {onDelete: 'cascade'});
   UserModel.hasMany(models.MedicalHistoryModel, {onDelete: 'cascade'});
+  UserModel.hasMany(models.AilmentModel); 
+  UserModel.hasMany(models.DoctorsModel); 
+
 }
 
 module.exports = UserModel;

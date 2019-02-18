@@ -14,13 +14,21 @@ var modelDefinition = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-      userId: { type: Sequelize.STRING, unique: true },
-      bioInfoId: { type: Sequelize.STRING, allowNull: false},
+      userId: { 
+        type: Sequelize.STRING, 
+        references: { model: "user", key: "id"}
+      },
+      bioInfoId: { 
+        type: Sequelize.STRING, 
+        allowNull: false,
+        references: { model: "bioinfo", key: "id"}
+      },
       doctorFullName: { type: Sequelize.STRING},
       doctorFirstName: { type: Sequelize.STRING},
       doctorLastName: { type: Sequelize.STRING},
       location: { type: Sequelize.STRING},
-      currentWorkPlace: { type: sequelize.STRING },
+      currentWorkPlace: { type: Sequelize.STRING },
+      hospital: { type: Sequelize.String}
 
 };
 
@@ -32,9 +40,11 @@ var modelOptions = {
 };
 
 // 3: Define the User model.
-var AilmentModel = db.define('ailment', modelDefinition, modelOptions);
+var DoctorsModel = db.define('doctors', modelDefinition, modelOptions);
 
 function associate(models) {
-  AilmentModel.belongsTo(models.BioInfoModel,{onDelete: 'cascade'})
+  DoctorsModel.belongsTo(models.UserModel,{onDelete: 'cascade'})
+  DoctorsModel.belongsTo(models.BioInfoModel,{onDelete: 'cascade'})
+
 }
-module.exports = AilmentModel;
+module.exports = DoctorsModel;
