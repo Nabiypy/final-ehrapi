@@ -14,10 +14,8 @@ var modelDefinition = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-     userId: { 
-       type: Sequelize.STRING, 
-       references: {model : "user", key: "id"}
-      },
+     userId: { type: Sequelize.STRING },
+     ehrUUID: { type: Sequelize.STRING, allowNull: false},
      fullName: { type: Sequelize.STRING, allowNull: false },
      firstName: { type: Sequelize.STRING },
      middleName: { type: Sequelize.STRING },
@@ -30,15 +28,12 @@ var modelDefinition = {
      allergies: { type: Sequelize.TEXT },
      medications: { type: Sequelize.TEXT },
      infections: { type: Sequelize.TEXT },
-     sickleCellType: { type: Sequelize.BOOLEAN, defaultvalue: 'false'},
-     handicap: { type: Sequelize.BOOLEAN, defaultvalue: 'false'},
-     location: { type: Sequelize.TEXT },
+     isHandicap: { type: Sequelize.BOOLEAN, defaultValue: false},
+     sickleCellType: { type: Sequelize.STRING},
+     NHISNumber: { type: Sequelize.TEXT},
      height: { type: Sequelize.STRING },
      weight: { type: Sequelize.STRING },
-     bmi: { type: Sequelize.DOUBLE },
-     latitude: { type: Sequelize.TEXT },
-     longitude: { type: Sequelize.TEXT },
-     geolocation: { type: Sequelize.TEXT }
+     bmi: { type: Sequelize.DOUBLE }
 };
 
 // 2: The model options.
@@ -48,13 +43,12 @@ var modelOptions = {
   }
 };
 
-// 3: Define the User model.
+// 3: Define the User model
 var BioInfoModel = db.define('bioinfo', modelDefinition, modelOptions);
 
 function associate(models) {
-  BioInfoModel.belongsTo(models.UserModel,{onDelete: 'cascade'});
-  BioInfoModel.hasMany(models.PersonalInfoModel, {onDelete: 'cascade'})
-  BioInfoModel.belongsTo(models.MedicalHistoryModel,{onDelete: 'cascade'});
-
+  BioInfoModel.belongsTo(models.UserModel,{foreignKey: 'userId'},{onDelete: 'cascade'});
+  BioInfoModel.hasMany(models.PersonalInfoModel, {foreignKey: 'personalinfoId'}, {onDelete: 'cascade'});
 }
+
 module.exports = BioInfoModel;

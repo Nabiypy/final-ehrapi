@@ -14,11 +14,11 @@ var jwt = require('jsonwebtoken'),
 
 AuthController.authenticateUser = async (req, res) => {
     console.log("login request ~ ", req.body);
-    if (!req.body.phoneNumber && !req.body.email) {
+    if (!req.body.mobile && !req.body.email) {
         res.status(404).json({message: 'mobile or email required to login !'});
     } else {
         var email = req.body.email,
-            phoneNumber = req.body.phoneNumber,
+            phoneNumber = req.body.mobile,
             password = req.body.password,
             username = req.body.username,
             potentialUser = {
@@ -26,10 +26,10 @@ AuthController.authenticateUser = async (req, res) => {
                     $or: [{ phoneNumber: phoneNumber}, {email: email}]
                 }
             };
-        console.log('potential user', potentialUser);
+        console.log(`[potential user] ==> ${JSON.stringify(potentialUser)}`);
         await User.find(potentialUser).then(function (user) {
-            console.log(` user phone _id +++> ${user.id}`);
-            console.log(` user phone nubmer +++> ${user.phoneNumber}`);
+            console.log(` user _id +++> ${user.id}`);
+            console.log(` user mobile +++> ${user.phoneNumber}`);
             console.log(` user email +++> ${user.email}`);
             console.log(` username +++> ${user.username}`);
             console.log(` user password +++> ${user.password}`);
@@ -41,12 +41,14 @@ AuthController.authenticateUser = async (req, res) => {
                 console.log('final password >>> ',user.password);
                 user.comparePasswords(password, function (error, isMatch) {
                     if (isMatch && !error) {
-                        var token = jwt.sign({email: user.email},config.keys.secret, {expiresIn: '24h'});
+                        var token = jwt.sign({email: [user.email, user.phoneNumber]},config.keys.secret, {expiresIn: '24h'});
                         res.json({
                             success: true,
                             token: 'JWT ' + token,
+                            userId: user.id,
                             profile: user.toProfileJsonFor(),
-                            role: user.role
+                            role: user.role,
+
                         });
 
                     } else {
@@ -72,6 +74,7 @@ AuthController.accountVerify = async (req, res) => {
                     return res.json({error: true, message: "Account already activated"})
                 } else {
                     user.mobile_confirmed = true;
+                    user.last_secret_date =new Date().toString();
                     user.save();
                     return res.json({error:false,message:"Account successfully activated", user:user.phoneNumber});
                 }

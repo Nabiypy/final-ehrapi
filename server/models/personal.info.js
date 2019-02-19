@@ -14,16 +14,8 @@ var modelDefinition = {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4
   },
-  userId: {
-    type: Sequelize.STRING,
-    unique: false,
-    references: { model: "user", key: "id" },
-  },
-  bioInfoId: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    references: { model: "bioinfo", key: "id"}
-  },
+  userId: { type: Sequelize.STRING, unique: false },
+  ehrUUID: { type: Sequelize.STRING, allowNull: false},
   levelOfEducation: { type: Sequelize.STRING, allowNull: false},
   spokenLanguages: { type: Sequelize.TEXT },
   profession: { type: Sequelize.STRING },
@@ -52,6 +44,7 @@ var modelDefinition = {
   nonFamilyContactThreeNumber: { type: Sequelize.STRING },
   nonFamilyContactThreeRelationship: { type: Sequelize.STRING },
   residentialAddress: { type: Sequelize.TEXT },
+  digitalAddress: { type: Sequelize.STRING},
   latitude: { type: Sequelize.TEXT },
   longitude: { type: Sequelize.TEXT },
   employmentType: { type: Sequelize.TEXT },
@@ -72,7 +65,7 @@ var modelOptions = {
 var PersonalInfoModel = db.define('personalinfo', modelDefinition, modelOptions);
 
 function associate(models) {
-  PersonalInfoModel.belongsTo(models.BioInfoModel, { onDelete: 'cascade' });
-  PersonalInfoModel.belongsTo(models.UserModel);
+  PersonalInfoModel.belongsTo(models.BioInfoModel, {foreignKey: 'bioInfoId'},{ onDelete: 'cascade' });
+  PersonalInfoModel.belongsTo(models.UserModel, {foreignKey: 'userId'});
 }
 module.exports = PersonalInfoModel;

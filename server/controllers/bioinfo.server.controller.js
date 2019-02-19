@@ -20,7 +20,7 @@ BioinfoServiceController.createBioInfo = function (req, res) {
   db.sync().then(function () {
     var newBioInfo = {
     userId: req.body.userId,
-    bioInfoId: uuidv4(),
+    ehrUUID: uuidv4(),
     fullName: req.body.fullName,
     firstName: req.body.firstName,
     middleName: req.body.middleName,
@@ -34,24 +34,28 @@ BioinfoServiceController.createBioInfo = function (req, res) {
     medications: req.body.medications,
     infections: req.body.infections,
     sickleCellType: req.body.sickleCellType,
-    handicap: req.body.handicap,
+    isHandicap: req.body.isHandicap,
     location: req.body.location,
     height: req.body.height,
     weight: req.body.weight,
-    bmi: req.body.bmi,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
-    geolocation: req.body.geolocation
+    bmi: req.body.bmi
 
     };
 
-    return Bioinfo.create(newBioInfo).then(function () {
+    return Bioinfo.create(newBioInfo).then(function (bioionfo) {
+      console.log(`[bioinfo saved] ==> ${bioionfo}`)
       res.status(201)
-         .json({message: 'new Biological info saved successfully'});
+         .json({
+           bioinfo: bioionfo,
+           message: 'new Biological info saved successfully'
+         });
     });
   }).catch(function (error) {
-    console.log(error);
-    res.status(403).json({ message: 'an error occured saving Bio info' });
+    console.log(`${error}`);
+    res.status(403).json({
+      error: error,
+      message: 'an error occured saving Biological information'
+    });
   });
 }
 

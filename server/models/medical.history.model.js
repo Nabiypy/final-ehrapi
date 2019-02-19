@@ -16,16 +16,13 @@ var modelDefinition = {
       },
      userId: {
       type: Sequelize.STRING,
-      allowNull: false,
-      references: { model: 'user', key: 'id'}
+      allowNull: false
      },
      bioInfoId: {
-       type: Sequelize.STRING,
-       references: { model: "bioinfo", key: "id" }
+       type: Sequelize.STRING
      },
      lastHospitalVisited: { type: Sequelize.STRING },
      dateOfVisitation: { type: Sequelize.STRING },
-     middleName: { type: Sequelize.STRING },
      diagnosis: { type: Sequelize.TEXT },
      statusOfTreatment: { type: Sequelize.TEXT },
      medications: { type: Sequelize.TEXT },
@@ -44,7 +41,7 @@ var modelOptions = {
 var MedicalHistoryModel = db.define('medicalhistory', modelDefinition, modelOptions);
 
 function associate(models) {
-  MedicalHistoryModel.belongsTo(models.UserModel,{foreignKey: 'userId'},{onDelete: 'cascade'});
-  MedicalHistoryModel.hasMany(models.BioInfoModel, {onDelete: 'cascade'})
+  MedicalHistoryModel.belongsTo(models.UserModel, {foreignKey: 'userId'});
+  MedicalHistoryModel.hasMany(models.BioInfoModel)
 }
 module.exports = MedicalHistoryModel;
