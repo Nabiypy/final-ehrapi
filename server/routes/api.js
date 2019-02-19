@@ -39,9 +39,20 @@ var APIRoutes = function(passport) {
 
     router.get('/bioinfos', BioinfoServiceController.getAllBioInfo);
     router.get('/bioinfo/:id', BioinfoServiceController.getBioInfoById);
-    router.get('/bioinfo/bypost/:postId', BioinfoServiceController.getBioInfoByPostId);
+    router.get('/bioinfo/uuid/:ehruuid', BioinfoServiceController.getBioInfoByPostId);
+    router.put('/bioinfo/:id', BioinfoServiceController.updateBioInfo);
+    router.delete('/bioinfo/:id', BioinfoServiceController.removeBioInfo);
 
     router.get('/personalinfos', PersonalinfoServiceController.getAllPersonalInfo);
+    router.get('/personalinfo/:id', PersonalinfoServiceController.getAllPersonalInfo);
+    router.put('/personalinfo/:id', PersonalinfoServiceController.updatePersonalInfo);
+    router.delete('/personalinfo/:id', PersonalinfoServiceController.updatePersonalInfo);
+
+    router.get('/api/medicalhistories', MedicalHistoryServiceController.getAllMedicalHistory);
+    router.get('/api/medicalhistory/:id', MedicalHistoryServiceController.getMedicalHistoryById);
+    router.delete('/api/medicalhostory/:id', MedicalHistoryServiceController.removeMedicalHistory);
+    router.put('/api/medicalhostory/:id',MedicalHistoryServiceController.updateMedicalHistory);
+
     router.get('/savedpassport', PassportServerController.getAllSavedPassport);
 
   return router;

@@ -114,7 +114,7 @@ PersonalInfoServiceController.getAllPersonalInfo = function (req, res) {
 }
 
 //Read Biological info
-PersonalInfoServiceController.getBioInfo = function (req, res) {
+PersonalInfoServiceController.getPersonalInfoById = function (req, res) {
     PersonalInfo.findById(req.params.id)
         .then(function (personalInfo) {
             res.status(200)
@@ -127,7 +127,7 @@ PersonalInfoServiceController.getBioInfo = function (req, res) {
 }
 
 // Update Biological info
-PersonalInfoServiceController.updateBioInfo = function (req, res) {
+PersonalInfoServiceController.updatePersonalInfo = function (req, res) {
     PersonalInfo.update(req.body, {
         where: {id: req.params.id}
     })

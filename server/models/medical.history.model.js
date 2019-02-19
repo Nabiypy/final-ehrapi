@@ -18,15 +18,13 @@ var modelDefinition = {
       type: Sequelize.STRING,
       allowNull: false
      },
-     bioInfoId: {
-       type: Sequelize.STRING
-     },
+     ehrUUID: {type: Sequelize.STRING },
      lastHospitalVisited: { type: Sequelize.STRING },
      dateOfVisitation: { type: Sequelize.STRING },
      diagnosis: { type: Sequelize.TEXT },
      statusOfTreatment: { type: Sequelize.TEXT },
      medications: { type: Sequelize.TEXT },
-     dateOfCompletion: { type: Sequelize.DATE },
+     dateOfCompletion: { type: Sequelize.STRING },
      seenByDoctor: { type: Sequelize.TEXT }
 };
 
