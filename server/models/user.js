@@ -4,7 +4,8 @@
 var Sequelize = require('sequelize'),
     bcrypt = require('bcryptjs'),
     config = require('../config'),
-    db = require('./database');
+    db = require('./database'),
+    bioInfoMo = require('./bio.info');
 
 // 1: The model schema.
 var modelDefinition = {
@@ -36,6 +37,7 @@ var modelOptions = {
   instanceMethods: {
     comparePasswords: comparePasswords,
     toProfileJsonFor: toProfileJsonFor
+    // getUserBioInfo: getUserBioInfo
   },
   hooks: {
     beforeValidate: hashPassword
@@ -69,6 +71,12 @@ function toProfileJsonFor() {
     email: this.email,
     gravatar: this.gravatar,
   }
+}
+
+ function getUserBioInfo(req, res,) {
+   bioInfoMo.findAll({where: {userId: this.userId }})
+      .then(biodatas => { console.log('final biodata', biodatas); var finalbiodata = biodatas;})
+      .catch(error => console.log(error))
 }
 
 // Hashes the password for a user object.

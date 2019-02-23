@@ -33,11 +33,15 @@ PersonalInfoServiceController.createPersonalInfo = async function (req, res) {
         request(options, async function (error, response, body) {
             console.log('options', options);
             try {
-                 var formatted_address = body.results[0];
+                var formatted_address = body.results[0];
                 geodata = formatted_address.formatted_address
-                console.log('formatted address ==>> ', geodata);
-            }catch (e) {
-                console.log(`[error geodata] ==> ${e}`);
+                console.log('formatted address ==>> ', formatted_address);
+                console.log('final geodata ==>> ', geodata);
+                Business.update({geolocation: geodata}, {
+                        where: { userId: req.body.userId }
+                });
+            } catch (e) {
+                console.log(`error ==> ${e}`);
             }
 
         });

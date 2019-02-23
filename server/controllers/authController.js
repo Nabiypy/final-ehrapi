@@ -9,21 +9,28 @@ var jwt = require('jsonwebtoken'),
     otp = require('../utils/alerts_sender'),
     db = require('../models/database'),
     User = require('../models/user'),
+    BioInfo = require('../models/bio.info'),
+    PersonalInfo = require('../models/personal.info'),
     async = require('async'),
     AuthController = {}; // The authentication controller.
 
 AuthController.authenticateUser = async (req, res) => {
     console.log("login request ~ ", req.body);
+
     if (!req.body.mobile && !req.body.email) {
         res.status(404).json({message: 'mobile or email required to login !'});
     } else {
-        var email = req.body.email,
+        var newBioDataa,
+            newPersonalDataa,
+            resultsBioInfo,
+            resultsPersonalInfo,
+            email = req.body.email,
             phoneNumber = req.body.mobile,
             password = req.body.password,
             username = req.body.username,
             potentialUser = {
                 where: {
-                    $or: [{ phoneNumber: phoneNumber}, {email: email}]
+                    $or: [{phoneNumber: phoneNumber}, {email: email}]
                 }
             };
         console.log(`[potential user] ==> ${JSON.stringify(potentialUser)}`);
@@ -35,21 +42,49 @@ AuthController.authenticateUser = async (req, res) => {
             console.log(` user password +++> ${user.password}`);
             console.log(` mobile confirmed ==> ${user.mobile_confirmed}`);
 
+
             if (user.mobile_confirmed === false) {
                 res.status(404).json({message: 'Account is not registered !'});
             } else {
-                console.log('final password >>> ',user.password);
+                console.log('final password >>> ', user.password);
                 user.comparePasswords(password, function (error, isMatch) {
                     if (isMatch && !error) {
-                        var token = jwt.sign({email: [user.email, user.phoneNumber]},config.keys.secret, {expiresIn: '24h'});
-                        res.json({
-                            success: true,
-                            token: 'JWT ' + token,
-                            userId: user.id,
-                            profile: user.toProfileJsonFor(),
-                            role: user.role,
+                        var token = jwt.sign({email: [user.email, user.phoneNumber]}, config.keys.secret, {expiresIn: '24h'});
 
-                        });
+                        resultsBioInfo = AuthController.getUserBioInfo(user.id).then((biodataa) => {
+                            // console.log("another results ---- + ", biodataa)
+                            newBioDataa = biodataa;
+                            // console.log("another results ---- + ",  JSON.stringify(newBioDataa))
+                            //     return JSON.stringify(newBioDataa) ;
+                            resultsPersonalInfo = AuthController.getUserPersonalInfo(user.id).then((personaldataa => {
+                                newPersonalDataa = personaldataa;
+                                console.log("personaldataa ======> ", JSON.stringify(newPersonalDataa))
+                                res.json({
+                                    success: true,
+                                    token: 'JWT ' + token,
+                                    userId: user.id,
+                                    profile: user.toProfileJsonFor(),
+                                    bioInformation: newBioDataa,
+                                    personalInformation: newPersonalDataa,
+                                    role: user.role
+
+                                });
+
+                            }))
+
+                            // res.json({
+                            //     success: true,
+                            //     token: 'JWT ' + token,
+                            //     userId: user.id,
+                            //     profile: user.toProfileJsonFor(),
+                            //     bioInformation: newBioDataa,
+                            //     personalInformation: newPersonalDataa,
+                            //     role: user.role
+                            //
+                            // });
+                        })
+
+                        // console.log("another results ---- + ",JSON.stringify(newBioDataa))
 
                     } else {
                         res.status(404).json({message: 'Login failed, password incorrect !'});
@@ -74,12 +109,12 @@ AuthController.accountVerify = async (req, res) => {
                     return res.json({error: true, message: "Account already activated"})
                 } else {
                     user.mobile_confirmed = true;
-                    user.last_secret_date =new Date().toString();
+                    user.last_secret_date = new Date().toString();
                     user.save();
-                    return res.json({error:false,message:"Account successfully activated", user:user.phoneNumber});
+                    return res.json({error: false, message: "Account successfully activated", user: user.phoneNumber});
                 }
             } else {
-                return res.json({error:true,message:"Invalid OTP code"})
+                return res.json({error: true, message: "Invalid OTP code"})
             }
 
         })
@@ -159,6 +194,30 @@ AuthController.people = function (req, res) {
         .catch(function (error) {
             res.status(500).json(error);
         });
+}
+
+AuthController.getUserBioInfo = async (user) => {
+    try {
+        var biodata = await BioInfo.findAll({where: {userId: user}})
+        console.log(`biodata =+++ ${JSON.stringify(biodata)}`);
+        return biodata;
+
+    } catch (e) {
+        console.log('error getUse\rBioInfo ==>', e);
+    }
+
+}
+
+AuthController.getUserPersonalInfo = async (user, res) => {
+    try {
+        var personaldata = await PersonalInfo.findAll({where: {userId: user}})
+        console.log(`personaldata =+++ ${JSON.stringify(personaldata)}`);
+        return personaldata;
+
+    } catch (e) {
+        console.log('error getUserPersonalInfo ==>', e);
+    }
+
 }
 
 /**
