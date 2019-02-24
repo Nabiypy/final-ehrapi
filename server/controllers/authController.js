@@ -172,7 +172,7 @@ AuthController.signUp = function (req, res) {
 // Authenticate a user.
 // http://localhost:9000/api/authenticate
 
-AuthController.peoples = function (req, res) {
+AuthController.getAllUsers = function (req, res) {
     console.log("all people request ~ ", req.body);
     User.findAll()
         .then(function (users) {
@@ -184,18 +184,18 @@ AuthController.peoples = function (req, res) {
         });
 }
 
-AuthController.people = function (req, res) {
-    console.log("people id ~ ", req.body);
+
+AuthController.getUserById = function (req, res) {
     User.findById(req.params.id)
         .then(function (user) {
-            res.status(200).json(user);
-            console.log('error: false ', 'get staff ~ ', user);
+            res.status(200)
+                .json(user);
+            console.log('error: false ', 'message: get user ~', user);
         })
         .catch(function (error) {
             res.status(500).json(error);
         });
 }
-
 AuthController.getUserBioInfo = async (user) => {
     try {
         var biodata = await BioInfo.findAll({where: {userId: user}})

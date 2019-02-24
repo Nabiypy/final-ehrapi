@@ -67,6 +67,35 @@ MedicalHistoryServiceController.getMedicalHistoryById = function (req, res) {
         });
 }
 
+MedicalHistoryServiceController.getMedicalHistoryByErhUUID= function (req, res) {
+  console.log(`[ehrUUID] ==> ${req.params.ehrUUID}`);
+  const erhuuid = req.params.ehrUUID
+  MedicalHistory.find({erhuuid})
+    .then(function (bioinfo) {
+      res.status(200)
+         .json(bioinfo);
+      console.log('error: false ', 'message: find medicalhistory by ehruuid ~', bioinfo);
+    })
+    .catch(function (error) {
+      res.status(500).json(error);
+    });
+}
+
+//Get Personal by user id
+MedicalHistoryServiceController.getMedicalHistoryUserId= function (req, res) {
+  console.log(`[userid] ==> ${req.params.userId}`);
+  const userId = req.params.userId;
+  MedicalHistory.find({userId})
+    .then(function (bioinfo) {
+      res.status(200)
+         .json(bioinfo);
+      console.log('error: false ', 'message: find medicalhistory by userId ~', bioinfo);
+    })
+    .catch(function (error) {
+      res.status(500).json(error);
+    });
+}
+
 // Update Biological info
 MedicalHistoryServiceController.updateMedicalHistory = function (req, res) {
     MedicalHistory.update(req.body, {

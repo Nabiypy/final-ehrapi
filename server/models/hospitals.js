@@ -15,9 +15,12 @@ var modelDefinition = {
         defaultValue: Sequelize.UUIDV4
       },
       hospitalFullName: { type: Sequelize.STRING},
-      branches: { type: Sequelize.TEXT},
+      phoneNumber: { type: Sequelize.STRING},
+      emailAddress: { type: Sequelize.STRING},
+      websiteAddress: { type: Sequelize.STRING},
+      branch: { type: Sequelize.TEXT},
       location: { type: Sequelize.STRING},
-      history: { type: Sequelize.TEXT}
+      others: { type: Sequelize.TEXT}
 
 };
 

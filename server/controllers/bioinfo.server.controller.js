@@ -87,13 +87,28 @@ BioinfoServiceController.getBioInfoById= function (req, res) {
 }
 
 //Read Bio info by postID
-BioinfoServiceController.getBioInfoByPostId= function (req, res) {
-  // console.log(`[postId] ==> ${postId}`);
-  Bioinfo.findById(req.params.bioInfoId)
+BioinfoServiceController.getBioInfoByErhUUID= function (req, res) {
+  console.log(`[ehrUUID] ==> ${req.params.ehrUUID}`);
+  const erhuuid = req.params.ehrUUID
+  Bioinfo.find({erhuuid})
     .then(function (bioinfo) {
       res.status(200)
          .json(bioinfo);
-      console.log('error: false ', 'message: read single bioinfo post ~', bioinfo);
+      console.log('error: false ', 'message: find bioinfo by ehruuid ~', bioinfo);
+    })
+    .catch(function (error) {
+      res.status(500).json(error);
+    });
+}
+//Get bioinfo by user id
+BioinfoServiceController.getBioInfoUserId= function (req, res) {
+  console.log(`[ehrUUID] ==> ${req.params.userId}`);
+  const userId = req.params.userId;
+  Bioinfo.find({userId})
+    .then(function (bioinfo) {
+      res.status(200)
+         .json(bioinfo);
+      console.log('error: false ', 'message: find bioinfo by userId ~', bioinfo);
     })
     .catch(function (error) {
       res.status(500).json(error);

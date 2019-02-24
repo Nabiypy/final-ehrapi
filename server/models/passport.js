@@ -15,12 +15,15 @@ var modelDefinition = {
         defaultValue: Sequelize.UUIDV4
       },
       userId: { type: Sequelize.STRING, unique: false },
-      bioInfoId: { type: Sequelize.STRING, allowNull: false},
+      ehrUUID: { type: Sequelize.STRING, allowNull: false},
       firstName: { type: Sequelize.STRING},
       lastName: { type: Sequelize.STRING},
+      fullName: { type: Sequelize.STRING},
       idType: { type: Sequelize.STRING},
       idNumber: { type: Sequelize.STRING},
-      expiredDate: { type: Sequelize.DATE}
+      expiredDate: { type: Sequelize.DATE},
+      picture: { type: Sequelize.STRING}
+
 };
 
 // 2: The model options.

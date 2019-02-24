@@ -30,8 +30,8 @@ var APIRoutes = function(passport) {
 
 
     // GET Routes.
-    router.get('/peoples', AuthController.peoples );
-    router.get('/people/:id', passport.authenticate('jwt', { session: false }),AuthController.people )
+    router.get('/peoples', AuthController.getAllUsers );
+    router.get('/people/:id', AuthController.getUserById );
 
     router.get('/profile', passport.authenticate('jwt', { session: false }), allowOnly(config.accessLevels.user, UserController.index));
     router.get('/admin', passport.authenticate('jwt', { session: false }), allowOnly(config.accessLevels.admin, AdminController.index));
@@ -39,19 +39,24 @@ var APIRoutes = function(passport) {
 
     router.get('/bioinfos', BioinfoServiceController.getAllBioInfo);
     router.get('/bioinfo/:id', BioinfoServiceController.getBioInfoById);
-    router.get('/bioinfo/uuid/:ehruuid', BioinfoServiceController.getBioInfoByPostId);
+    router.get('/bioinfo/userid/:userId',passport.authenticate('jwt', { session: false }),BioinfoServiceController.getBioInfoUserId);
+    router.get('/bioinfo/ehruuid/:ehruuid', BioinfoServiceController.getBioInfoByErhUUID);
     router.put('/bioinfo/:id', BioinfoServiceController.updateBioInfo);
     router.delete('/bioinfo/:id', BioinfoServiceController.removeBioInfo);
 
     router.get('/personalinfos', PersonalinfoServiceController.getAllPersonalInfo);
     router.get('/personalinfo/:id', PersonalinfoServiceController.getAllPersonalInfo);
+    router.get('/personalinfo/userid/:userId',passport.authenticate('jwt', { session: false }),BioinfoServiceController.getBioInfoUserId);
+    router.get('/personalinfo/ehruuid/:ehruuid', BioinfoServiceController.getBioInfoByErhUUID);
     router.put('/personalinfo/:id', PersonalinfoServiceController.updatePersonalInfo);
     router.delete('/personalinfo/:id', PersonalinfoServiceController.updatePersonalInfo);
 
-    router.get('/api/medicalhistories', MedicalHistoryServiceController.getAllMedicalHistory);
-    router.get('/api/medicalhistory/:id', MedicalHistoryServiceController.getMedicalHistoryById);
-    router.delete('/api/medicalhostory/:id', MedicalHistoryServiceController.removeMedicalHistory);
-    router.put('/api/medicalhostory/:id',MedicalHistoryServiceController.updateMedicalHistory);
+    router.get('/medicalhistories', MedicalHistoryServiceController.getAllMedicalHistory);
+    router.get('/medicalhistory/:id', MedicalHistoryServiceController.getMedicalHistoryById);
+    router.get('/medicalhistory/userid/:userId', MedicalHistoryServiceController.getMedicalHistoryUserId);
+    router.get('/medicalhistory/ehruuid/:ehruuid', MedicalHistoryServiceController.getMedicalHistoryByErhUUID);
+    router.delete('/medicalhistory/:id', MedicalHistoryServiceController.removeMedicalHistory);
+    router.put('/medicalhistory/:id',MedicalHistoryServiceController.updateMedicalHistory);
 
     router.get('/savedpassport', PassportServerController.getAllSavedPassport);
 

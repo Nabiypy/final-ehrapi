@@ -9,31 +9,35 @@ var Sequelize = require('sequelize'),
     db = require('./database');
 
 var modelDefinition = {
-       id: {
+    id: {
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
-      },
-      userId: { type: Sequelize.STRING, unique: false },
-      bioInfoId: { type: Sequelize.STRING, allowNull: false},
-      firstName: { type: Sequelize.STRING},
-      lastName: { type: Sequelize.STRING},
-      idType: { type: Sequelize.STRING},
-      idNumber: { type: Sequelize.STRING},
-      expiredDate: { type: Sequelize.DATE}
+    },
+    userId: {type: Sequelize.STRING, unique: false},
+    ehrUUID: {type: Sequelize.STRING, allowNull: false},
+    firstName: {type: Sequelize.STRING},
+    lastName: {type: Sequelize.STRING},
+    fullName: {type: Sequelize.STRING},
+    idType: {type: Sequelize.STRING},
+    idNumber: {type: Sequelize.STRING},
+    expiredDate: {type: Sequelize.DATE},
+    picture: {type: Sequelize.STRING}
+
 };
 
 // 2: The model options.
 var modelOptions = {
-  classMethods:{
-    associate: associate
-  }
+    classMethods: {
+        associate: associate
+    }
 };
 
 // 3: Define the User model.
 var VotesIdModel = db.define('voters', modelDefinition, modelOptions);
 
 function associate(models) {
-  VotesIdModel.belongsTo(models.BioInfoModel,{onDelete: 'cascade'})
+    VotesIdModel.belongsTo(models.BioInfoModel, {onDelete: 'cascade'})
 }
+
 module.exports = VotesIdModel;

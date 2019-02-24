@@ -55,7 +55,7 @@ PersonalInfoServiceController.createPersonalInfo = async function (req, res) {
                 maritalStatus: req.body.maritalStatus,
                 noOfKids: req.body.noOfKids,
                 religion: req.body.religion,
-                emergencyNumbers: req.body.emergencyNumbers,
+                emergencyNumbers: "",
 
                 familyContactOneName: req.body.familyContactOneName,
                 familyContactOneNumber: req.body.familyContactOneNumber,
@@ -117,7 +117,7 @@ PersonalInfoServiceController.getAllPersonalInfo = function (req, res) {
         });
 }
 
-//Read Biological info
+//Read Personal info
 PersonalInfoServiceController.getPersonalInfoById = function (req, res) {
     PersonalInfo.findById(req.params.id)
         .then(function (personalInfo) {
@@ -129,8 +129,34 @@ PersonalInfoServiceController.getPersonalInfoById = function (req, res) {
             res.status(500).json(error);
         });
 }
-
-// Update Biological info
+PersonalInfoServiceController.getBioInfoByErhUUID= function (req, res) {
+  console.log(`[ehrUUID] ==> ${req.params.ehrUUID}`);
+  const erhuuid = req.params.ehrUUID
+  PersonalInfo.find({erhuuid})
+    .then(function (bioinfo) {
+      res.status(200)
+         .json(bioinfo);
+      console.log('error: false ', 'message: find personalinfo by ehruuid ~', bioinfo);
+    })
+    .catch(function (error) {
+      res.status(500).json(error);
+    });
+}
+//Get Personal by user id
+PersonalInfoServiceController.getPersonalInfoUserId= function (req, res) {
+  console.log(`[userid] ==> ${req.params.userId}`);
+  const userId = req.params.userId;
+  PersonalInfo.find({userId})
+    .then(function (bioinfo) {
+      res.status(200)
+         .json(bioinfo);
+      console.log('error: false ', 'message: find personalinfo by userId ~', bioinfo);
+    })
+    .catch(function (error) {
+      res.status(500).json(error);
+    });
+}
+// Update Personal info
 PersonalInfoServiceController.updatePersonalInfo = function (req, res) {
     PersonalInfo.update(req.body, {
         where: {id: req.params.id}
@@ -144,7 +170,7 @@ PersonalInfoServiceController.updatePersonalInfo = function (req, res) {
         });
 }
 
-//delete Biological info
+//delete Personal info
 PersonalInfoServiceController.removePersonalInfo = function (req, res) {
     PersonalInfo.destroy({
         where: {id: req.params.id}
