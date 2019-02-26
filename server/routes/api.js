@@ -12,7 +12,8 @@ var config = require('../config'),
     PersonalinfoServiceController = require('../controllers/personalInfo.server.controller'),
     MedicalHistoryServiceController = require('../controllers/medical.history.server.controller'),
     PassportServerController = require('../controllers/international.passport.server.controller'),
-    AilmentServerController = require('../controllers/ailment.server.controller');
+    AilmentServerController = require('../controllers/ailment.server.controller'),
+    AmbulanceServerController = require('../controllers/ambulance.server.controller');
 
 
 var APIRoutes = function(passport) {
@@ -29,6 +30,7 @@ var APIRoutes = function(passport) {
     router.post('/createmedicalhistory', passport.authenticate('jwt', { session: false }),MedicalHistoryServiceController.createMedicalHistory);
     router.post('/savepassport', PassportServerController.savePassport);
     router.post('/ailments',passport.authenticate('jwt', { session: false }),AilmentServerController.createAilment);
+    router.post('/ambulances',passport.authenticate('jwt', { session: false }), AmbulanceServerController.requestForAmbulance);
 
 
     // GET Routes.
@@ -64,6 +66,12 @@ var APIRoutes = function(passport) {
     router.get('/ailment/:id',AilmentServerController.getAilmentById);
     router.put('/ailment/:id',AilmentServerController.updateAilment);
     router.delete('/ailment/:id',AilmentServerController.removeAilment);
+
+    router.get('/ambulances', AmbulanceServerController.getAllAmbulanceRequest);
+    router.get('/ambulance/:id', AmbulanceServerController.getAmbulanceRequestById);
+    router.get('/ambulance/userid/:userId', passport.authenticate('jwt', { session: false }), AmbulanceServerController.getAmbulanceRequestByUserId);
+    router.put('/ambulance/:id', AmbulanceServerController.updateAmbulanceRequest);
+    router.delete('/ambulance/:id', AmbulanceServerController.removeAmbulanceRequest);
 
 
     router.get('/savedpassport', PassportServerController.getAllSavedPassport);

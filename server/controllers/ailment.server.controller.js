@@ -60,7 +60,7 @@ AilmentServiceController.getAllAilment = function (req, res) {
 //Read Biological info
 AilmentServiceController.getAilmentById= function (req, res) {
   const ailmentId = req.params.id;
-  Bioinfo.findById(ailmentId)
+  Ailment.findById(ailmentId)
     .then(function (ailment) {
       res.status(200)
         .json(ailment);

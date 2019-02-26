@@ -22,3 +22,11 @@ IsPepertual Media - git clone https://github.com/Nabiypy/final-ehrapi.git
 * Activate account: `/api/activateaccount`    params = `otp`
 * Login user:       `/api/authenticate`       params = `mobile, email, password`
 
+* Create ailment:  `/api/ailments` 
+* List all ailment:`/api/ailments`
+* List ailment:    `/api/ailment/:id`
+* Update ailment:  `/api/ailment/:id`
+* Delete Ailment:  `/api/ailment/:id`
+
+
+* Doctors: `/api/doctors`

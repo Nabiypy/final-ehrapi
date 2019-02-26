@@ -33,7 +33,8 @@ var AilmentModel = db.define('ailment', modelDefinition, modelOptions);
 
 function associate(models) {
     AilmentModel.belongsTo(models.UserModel, {onDelete: 'cascade'})
-    AilmentModel.belongsTo(models.BioInfoModel, {onDelete: 'cascade'})
+    AilmentModel.hasMany(models.BioInfoModel, {onDelete: 'cascade'})
+    AilmentModel.hasMany(models.AmbulanceModel, {onDelete: 'cascade'})
 }
 
 module.exports = AilmentModel;
