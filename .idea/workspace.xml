@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a02f807-0287-487f-bb4e-beba32df7dfd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/controllers/ambulance.server.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/models/ambulance.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/doctor.server.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/ailment.server.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/ailment.server.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/ailment.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/ailment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/doctors.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/doctors.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/api.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,20 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/models/doctors.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="16" column="32" selection-end-line="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/models/passport.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="24" column="9" selection-start-line="24" selection-end-line="25" />
+            <state relative-caret-position="368">
+              <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -87,17 +75,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/controllers/ambulance.server.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="61" column="19" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="19" />
+            <state relative-caret-position="268">
+              <caret line="60" column="23" lean-forward="true" selection-end-line="121" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/controllers/ailment.server.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
+            <state relative-caret-position="-60">
               <caret line="59" column="22" lean-forward="true" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/controllers/doctor.server.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="27" column="20" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -105,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/routes/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="76" column="58" lean-forward="true" selection-start-line="76" selection-start-column="58" selection-end-line="76" selection-end-column="58" />
+            <state relative-caret-position="495">
+              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
             </state>
           </provider>
         </entry>
@@ -131,6 +128,7 @@
       <find>{type: Sequelize.TEXT}</find>
       <find>BioinfoServiceController</find>
       <find>AilmentServiceController</find>
+      <find>Ambulance</find>
     </findStrings>
     <replaceStrings>
       <replace>Sequelize</replace>
@@ -142,6 +140,7 @@
       <replace>req.body.</replace>
       <replace>AilmentServiceController</replace>
       <replace>AmbulanceServiceController</replace>
+      <replace>DoctorServiceController</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -174,7 +173,6 @@
         <option value="$PROJECT_DIR$/server/controllers/personalInfo.server.controller.js" />
         <option value="$PROJECT_DIR$/server/controllers/medical.history.server.controller.js" />
         <option value="$PROJECT_DIR$/server/models/hospitals.js" />
-        <option value="$PROJECT_DIR$/server/models/doctors.js" />
         <option value="$PROJECT_DIR$/server/models/passport.js" />
         <option value="$PROJECT_DIR$/server/models/voters.js" />
         <option value="$PROJECT_DIR$/server/controllers/authController.js" />
@@ -182,8 +180,10 @@
         <option value="$PROJECT_DIR$/server/models/ailment.js" />
         <option value="$PROJECT_DIR$/server/models/ambulance.js" />
         <option value="$PROJECT_DIR$/server/controllers/ambulance.server.controller.js" />
-        <option value="$PROJECT_DIR$/server/routes/api.js" />
         <option value="$PROJECT_DIR$/server/controllers/ailment.server.controller.js" />
+        <option value="$PROJECT_DIR$/server/controllers/doctor.server.controller.js" />
+        <option value="$PROJECT_DIR$/server/routes/api.js" />
+        <option value="$PROJECT_DIR$/server/models/doctors.js" />
       </list>
     </option>
   </component>
@@ -220,6 +220,18 @@
               <item name="final-ehrapi" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="final-ehrapi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="final-ehrapi" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="final-ehrapi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="final-ehrapi" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -296,12 +308,12 @@
       <workItem from="1550924938804" duration="4472000" />
       <workItem from="1550929587211" duration="8801000" />
       <workItem from="1551023294881" duration="5723000" />
-      <workItem from="1551163899917" duration="6395000" />
+      <workItem from="1551163899917" duration="8375000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136734000" />
+    <option name="totallyTimeSpent" value="138714000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -336,7 +348,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/models/comment.js" />
     <entry file="file://$PROJECT_DIR$/server/controllers/postServerController.js" />
     <entry file="file://$PROJECT_DIR$/server/controllers/groupServerController.js" />
     <entry file="file://$PROJECT_DIR$/server/models/group.js" />
@@ -556,13 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/doctors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="16" column="32" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/models/ailment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
@@ -587,24 +591,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/ailment.server.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="59" column="22" lean-forward="true" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/controllers/ambulance.server.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="61" column="19" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="19" />
+        <state relative-caret-position="268">
+          <caret line="60" column="23" lean-forward="true" selection-end-line="121" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="76" column="58" lean-forward="true" selection-start-line="76" selection-start-column="58" selection-end-line="76" selection-end-column="58" />
+        <state relative-caret-position="495">
+          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/controllers/ailment.server.controller.js">
+    <entry file="file://$PROJECT_DIR$/server/controllers/doctor.server.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="59" column="22" lean-forward="true" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        <state relative-caret-position="301">
+          <caret line="27" column="20" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/doctors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
         </state>
       </provider>
     </entry>

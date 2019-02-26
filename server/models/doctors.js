@@ -19,9 +19,9 @@ var modelDefinition = {
     doctorLastName: {type: Sequelize.STRING},
     phoneNumber: {type: Sequelize.STRING},
     emailAddress: {type: Sequelize.STRING},
-    location: {type: Sequelize.STRING},
+    officeAddress: {type: Sequelize.STRING},
     currentWorkPlace: {type: Sequelize.STRING},
-    hospital: {type: Sequelize.String},
+    hospital: {type: Sequelize.STRING},
     qualification: { type: Sequelize.STRING}
 
 };
