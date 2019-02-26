@@ -14,8 +14,10 @@ var modelDefinition = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
     },
-    ailmentName: {type: Sequelize.STRING},
-    ailmentType: {type: Sequelize.STRING},
+    userId: { type: Sequelize.STRING},
+    ailmentName: { type: Sequelize.STRING},
+    ailmentType: { type: Sequelize.STRING},
+    ailmentDescription: { type: Sequelize.STRING},
     otherInfo: { type: Sequelize.TEXT }
 };
 
