@@ -15,7 +15,7 @@ var modelDefinition = {
         defaultValue: Sequelize.UUIDV4
       },
      userId: { type: Sequelize.STRING },
-     ehrUUID: { type: Sequelize.STRING, allowNull: false},
+     ehrUUID: { type: Sequelize.STRING},
      fullName: { type: Sequelize.STRING, allowNull: false },
      firstName: { type: Sequelize.STRING },
      middleName: { type: Sequelize.STRING },

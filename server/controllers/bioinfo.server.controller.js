@@ -57,7 +57,7 @@ BioinfoServiceController.createBioInfo = function (req, res) {
     console.log(`${error}`);
     res.status(403).json({
       error: error,
-      message: 'an error occured saving Biological information'
+      message: 'An error occured saving Biological information'
     });
   });
 }
@@ -75,22 +75,22 @@ BioinfoServiceController.getAllBioInfo = function (req, res) {
     });
 }
 
-//Read Biological info
+//Read Biological info by Id
 BioinfoServiceController.getBioInfoById= function (req, res) {
   const bioId = req.params.id;
   Bioinfo.findById(bioId)
     .then(function (bioinfo) {
       res.status(200)
         .json(bioinfo);
-      console.log('error: false ', 'message: read single post ~', bioinfo);
+      console.log('error: false ', 'message: get bioinfo by Id ~', bioinfo);
     })
     .catch(function (error) {
       res.status(500).json(error);
     });
 }
 
-//Read Bio info by postID
-BioinfoServiceController.getBioInfoByErhUUID= function (req, res) {
+//Get Bioinfo by ehrUUID
+BioinfoServiceController.getBioInfoByEhrUUID= function (req, res) {
   console.log(`[ehrUUID] ==> ${req.params.ehrUUID}`);
   const erhuuid = req.params.ehrUUID
   Bioinfo.find({erhuuid})
@@ -103,9 +103,9 @@ BioinfoServiceController.getBioInfoByErhUUID= function (req, res) {
       res.status(500).json(error);
     });
 }
-//Get bioinfo by user id
+//Get bioinfo by userId
 BioinfoServiceController.getBioInfoUserId= function (req, res) {
-  console.log(`[ehrUUID] ==> ${req.params.userId}`);
+  console.log(`[userId] ==> ${req.params.userId}`);
   const userId = req.params.userId;
   Bioinfo.find({userId})
     .then(function (bioinfo) {

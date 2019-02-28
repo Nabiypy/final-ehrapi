@@ -129,14 +129,14 @@ PersonalInfoServiceController.getPersonalInfoById = function (req, res) {
             res.status(500).json(error);
         });
 }
-PersonalInfoServiceController.getBioInfoByErhUUID= function (req, res) {
+PersonalInfoServiceController.getPersonalInfoByEhrUUID= function (req, res) {
   console.log(`[ehrUUID] ==> ${req.params.ehrUUID}`);
   const erhuuid = req.params.ehrUUID
   PersonalInfo.find({erhuuid})
     .then(function (bioinfo) {
       res.status(200)
          .json(bioinfo);
-      console.log('error: false ', 'message: find personalinfo by ehruuid ~', bioinfo);
+      console.log('error: false ', 'message: find personalinfo by ehruuid ~');
     })
     .catch(function (error) {
       res.status(500).json(error);

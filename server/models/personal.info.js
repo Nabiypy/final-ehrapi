@@ -15,7 +15,7 @@ var modelDefinition = {
     defaultValue: Sequelize.UUIDV4
   },
   userId: { type: Sequelize.STRING, unique: false },
-  ehrUUID: { type: Sequelize.STRING, allowNull: false},
+  ehrUUID: { type: Sequelize.STRING},
   levelOfEducation: { type: Sequelize.STRING, allowNull: false},
   spokenLanguages: { type: Sequelize.TEXT },
   profession: { type: Sequelize.STRING },
@@ -52,7 +52,6 @@ var modelDefinition = {
   companyLocation: { type: Sequelize.TEXT },
   phoneNumber: { type: Sequelize.TEXT },
   geolocation: { type: Sequelize.TEXT }
-  
 };
 
 // 2: The model options.

@@ -46,14 +46,14 @@ var APIRoutes = function(passport) {
     router.get('/bioinfos', BioinfoServiceController.getAllBioInfo);
     router.get('/bioinfo/:id', BioinfoServiceController.getBioInfoById);
     router.get('/bioinfo/userid/:userId',passport.authenticate('jwt', { session: false }),BioinfoServiceController.getBioInfoUserId);
-    router.get('/bioinfo/ehruuid/:ehruuid', BioinfoServiceController.getBioInfoByErhUUID);
+    router.get('/bioinfo/ehruuid/:ehruuid', BioinfoServiceController.getBioInfoByEhrUUID);
     router.put('/bioinfo/:id', BioinfoServiceController.updateBioInfo);
     router.delete('/bioinfo/:id', BioinfoServiceController.removeBioInfo);
 
     router.get('/personalinfos', PersonalinfoServiceController.getAllPersonalInfo);
-    router.get('/personalinfo/:id', PersonalinfoServiceController.getAllPersonalInfo);
+    router.get('/personalinfo/:id', PersonalinfoServiceController.getPersonalInfoById);
     router.get('/personalinfo/userid/:userId',passport.authenticate('jwt', { session: false }),BioinfoServiceController.getBioInfoUserId);
-    router.get('/personalinfo/ehruuid/:ehruuid', BioinfoServiceController.getBioInfoByErhUUID);
+    router.get('/personalinfo/ehruuid/:ehruuid', PersonalinfoServiceController.getPersonalInfoByEhrUUID);
     router.put('/personalinfo/:id', PersonalinfoServiceController.updatePersonalInfo);
     router.delete('/personalinfo/:id', PersonalinfoServiceController.updatePersonalInfo);
 
