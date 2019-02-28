@@ -52,6 +52,7 @@ var modelDefinition = {
   companyLocation: { type: Sequelize.TEXT },
   phoneNumber: { type: Sequelize.TEXT },
   geolocation: { type: Sequelize.TEXT }
+  
 };
 
 // 2: The model options.
